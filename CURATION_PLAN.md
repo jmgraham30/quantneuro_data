@@ -1,7 +1,5 @@
 # Quantitative Neuroscience — Data Curation Plan
 
-Organized by **topic**, since Version A and Version B share most methods. Building a
-dataset once for a topic serves both syllabus versions, wherever that topic falls.
 
 | Topic | Real or Simulated | Bio-side plan | Psych-side plan |
 |---|---|---|---|
@@ -24,5 +22,4 @@ dataset once for a topic serves both syllabus versions, wherever that topic fall
 | Computational modeling (LIF neuron / RL choice model) | **Simulated by definition** | — | — |
 | Modeling decisions / Bayesian | Simulated, or a real open choice-task dataset | — | — |
 
-**Bottom line: roughly a third of topics need simulation (anything requiring a known ground
-truth), and the rest should use real data** from the four sourcing pipelines above.
+
