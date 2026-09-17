@@ -24,7 +24,7 @@
 #' recovered parameters will be close to, but not exactly, the ground truth
 #' above — that's a deliberate and useful discussion point, not an error.
 #'
-#' @author [Your Name]
+#' @author JMG
 #' @date 2026-09-16 (edit to reflect actual creation date)
 #' @seealso data/dose_response/dose_response_dictionary.md
 

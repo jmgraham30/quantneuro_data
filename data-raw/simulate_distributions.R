@@ -25,7 +25,7 @@
 #' Run this script from the repository root (`Rscript data-raw/simulate_distributions.R`).
 #' It writes four CSVs to `data/distributions/` plus a data dictionary.
 #'
-#' @author [Your Name]
+#' @author JMG
 #' @date 2026-09-16 (edit to reflect actual creation date)
 #' @seealso data/distributions/distributions_dictionary.md
 

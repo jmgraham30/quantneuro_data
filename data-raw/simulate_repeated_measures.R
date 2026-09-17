@@ -33,7 +33,7 @@
 #' wide file to long with `pivot_longer()`, join the metadata with
 #' `left_join()`, then fit a mixed-effects model with `lme4::lmer()`.
 #'
-#' @author [Your Name]
+#' @author JMG
 #' @date 2026-09-16 (edit to reflect actual creation date)
 #' @seealso data/repeated_measures/repeated_measures_dictionary.md
 
