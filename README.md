@@ -15,7 +15,8 @@ quantneuro-data/
 ├── data-raw/                <- scripts that generate or clean each dataset (source of truth)
 │   ├── simulate_distributions.R
 │   ├── simulate_repeated_measures.R
-│   └── simulate_dose_response.R
+│   ├── simulate_dose_response.R
+│   └── simulate_diagnostic_failures.R
 ├── data/                     <- output CSVs, one subfolder per topic
 │   └── <topic>/
 │       ├── <topic>_bio.csv
@@ -42,6 +43,8 @@ and in its `_dictionary.md` file.
 | Repeated measures / pivoting / mixed models | Psych | Simulated | RT trials, wide format, with missingness | `data-raw/simulate_repeated_measures.R` |
 | Nonlinear curve fitting | Bio | Simulated | Dose-response curve (known EC50 & Hill slope) | `data-raw/simulate_dose_response.R` |
 | Nonlinear curve fitting | Psych | Simulated | Psychophysical function (known threshold & slope) | `data-raw/simulate_dose_response.R` |
+| Diagnostic-failure demo (what a bad diagnostic plot looks like) | Bio | Simulated | Calcium-imaging amplitude vs. intensity, deliberately heteroscedastic (fan-shaped residuals under OLS) | `data-raw/simulate_diagnostic_failures.R` |
+| Diagnostic-failure demo (what a bad diagnostic plot looks like) | Psych | Simulated | Recall accuracy vs. study time, deliberately nonlinear (arc-shaped residuals under a linear fit) | `data-raw/simulate_diagnostic_failures.R` |
 | Descriptive stats, t-tests, ANOVA, regression, PCA, classification | Bio | Real | Allen Institute Cell Types Database | [Allen Cell Types](https://celltypes.brain-map.org/), via [Juavinett's teaching materials](https://github.com/ajuavinett) |
 | Descriptive stats, t-tests, ANOVA, regression, reading a paper | Psych | Real | Open Stats Lab datasets (paired with *Psychological Science* articles) | [Open Stats Lab](https://sites.google.com/view/openstatslab/home) |
 | Additional psych datasets / lab manual model | Psych | Real | Crump Lab open stats lab manual | [crumplab.com/statisticsLab](https://crumplab.com/statisticsLab/) (CC BY-SA) |
