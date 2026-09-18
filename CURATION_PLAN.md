@@ -17,9 +17,9 @@
 | Repeated measures + pivoting long/wide + mixed models + diagnostic-plot check | **Simulated** — need to control the random-effects structure | Calcium-imaging trials, wide format, some missing | RT trials, wide format, some missing |
 | Reproducible workflows | Reuse wrangling-week dataset | — | — |
 | Reading a real paper (+ multiple comparisons/QRPs) | Real (it's a paper) | Pick an open-access eNeuro paper | Pick an Open Stats Lab paper |
-| Logistic regression / classification / SDT | Real preferred; simulate for the SDT "known d′" exercise | Allen Cell Types, cell-type classification from ephys features | Simulated SDT task (known hit/miss rates) + real diagnostic-classification dataset |
-| Dimensionality reduction (PCA) | Real | Allen Cell Types, multivariate ephys features | An open Big-Five / cognitive-battery dataset |
-| Time-series / signal basics | **Simulated** — cleanest for teaching known frequency content | Simulated LFP with a known oscillation + noise | Simulated or real eye-tracking / skin-conductance trace |
+| Logistic regression / classification / SDT | Real preferred; simulate for the SDT "known d′" exercise | Allen Cell Types (cell-type classification) or IBL trials, real mouse contrast-detection choices (`prepare_ibl.R`) | Simulated SDT task (known hit/miss rates) + real diagnostic-classification dataset |
+| Dimensionality reduction (PCA) | Real | Allen Cell Types (multivariate ephys features) or Steinmetz region-activity matrix, real multi-region population data (`prepare_steinmetz.R`) | An open Big-Five / cognitive-battery dataset |
+| Time-series / signal basics (lower build priority — flagged as the most cuttable Version B topic if time runs short) | Simulated (Bio) or Real (Psych) | Simulated LFP with a known oscillation + noise | Real human EEG, PhysioNet Motor Movement/Imagery dataset (`prepare_physionet_eeg.R`), or simulated/real eye-tracking / skin-conductance trace |
 | Computational modeling (LIF neuron / RL choice model) | **Simulated by definition** | — | — |
 | Modeling decisions / Bayesian | Simulated, or a real open choice-task dataset | — | — |
 

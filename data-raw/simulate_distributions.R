@@ -30,6 +30,8 @@
 #' @seealso data/distributions/distributions_dictionary.md
 
 
+library(tidyverse)
+
 set.seed(20260916)  # fixed seed: reproducible for every student, every semester
 
 out_dir <- file.path("data", "distributions")
@@ -49,13 +51,13 @@ true_rt_sdlog   <- 0.35
 
 # ---- Bio: spike counts (Poisson) --------------------------------------------
 
-spike_counts <- data.frame(
+spike_counts <- tibble(
   neuron_id = rep(sprintf("N%02d", 1:n_neurons), each = n_trials),
   trial     = rep(1:n_trials, times = n_neurons),
   spike_count = rpois(n_neurons * n_trials, lambda = true_lambda)
 )
 
-write.csv(spike_counts, file.path(out_dir, "spike_counts_bio.csv"), row.names = FALSE)
+write_csv(spike_counts, file.path(out_dir, "spike_counts_bio.csv"))
 
 # ---- Bio: inter-spike intervals (Exponential) -------------------------------
 # One long train of ISIs per neuron, in seconds. Mean ISI = 1/true_lambda.
@@ -63,7 +65,7 @@ write.csv(spike_counts, file.path(out_dir, "spike_counts_bio.csv"), row.names = 
 n_isis_per_neuron <- 200
 
 isi_list <- lapply(1:n_neurons, function(i) {
-  data.frame(
+  tibble(
     neuron_id = sprintf("N%02d", i),
     isi_index = 1:n_isis_per_neuron,
     isi_sec   = rexp(n_isis_per_neuron, rate = true_lambda)
@@ -71,24 +73,24 @@ isi_list <- lapply(1:n_neurons, function(i) {
 })
 inter_spike_intervals <- do.call(rbind, isi_list)
 
-write.csv(inter_spike_intervals, file.path(out_dir, "inter_spike_intervals_bio.csv"), row.names = FALSE)
+write_csv(inter_spike_intervals, file.path(out_dir, "inter_spike_intervals_bio.csv"))
 
 # ---- Psych: forced-choice accuracy (Binomial) -------------------------------
 # One row per participant: number of correct trials out of n_forced_choice_trials.
 
-forced_choice_accuracy <- data.frame(
+forced_choice_accuracy <- tibble(
   participant_id = sprintf("P%03d", 1:n_participants),
   n_trials    = n_forced_choice_trials,
   n_correct   = rbinom(n_participants, size = n_forced_choice_trials, prob = true_accuracy)
 )
 
-write.csv(forced_choice_accuracy, file.path(out_dir, "forced_choice_accuracy_psych.csv"), row.names = FALSE)
+write_csv(forced_choice_accuracy, file.path(out_dir, "forced_choice_accuracy_psych.csv"))
 
 # ---- Psych: reaction times (right-skewed) -----------------------------------
 # Trial-level RTs per participant; deliberately NOT normal.
 
 rt_list <- lapply(1:n_participants, function(i) {
-  data.frame(
+  tibble(
     participant_id = sprintf("P%03d", i),
     trial = 1:n_forced_choice_trials,
     rt_ms = rlnorm(n_forced_choice_trials, meanlog = true_rt_meanlog, sdlog = true_rt_sdlog)
@@ -96,7 +98,7 @@ rt_list <- lapply(1:n_participants, function(i) {
 })
 reaction_times <- do.call(rbind, rt_list)
 
-write.csv(reaction_times, file.path(out_dir, "reaction_times_psych.csv"), row.names = FALSE)
+write_csv(reaction_times, file.path(out_dir, "reaction_times_psych.csv"))
 
 # ---- Data dictionary ---------------------------------------------------------
 

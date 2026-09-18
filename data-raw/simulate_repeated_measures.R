@@ -38,6 +38,8 @@
 #' @seealso data/repeated_measures/repeated_measures_dictionary.md
 
 
+library(tidyverse)
+
 set.seed(20260917)
 
 out_dir <- file.path("data", "repeated_measures")
@@ -67,7 +69,7 @@ neuron_ids <- sprintf("N%02d", 1:n_neurons)
 genotype   <- sample(c("A", "B"), n_neurons, replace = TRUE)
 neuron_intercept <- rnorm(n_neurons, mean = 0, sd = bio_between_sd)
 
-bio_wide <- data.frame(neuron_id = neuron_ids)
+bio_wide <- tibble(neuron_id = neuron_ids)
 for (t in 1:n_trials_bio) {
   genotype_effect <- ifelse(genotype == "B", bio_genotype_effect, 0)
   trial_values <- bio_grand_mean + genotype_effect + neuron_intercept +
@@ -78,10 +80,10 @@ for (t in 1:n_trials_bio) {
   bio_wide[[paste0("trial_", t)]] <- round(trial_values, 3)
 }
 
-write.csv(bio_wide, file.path(out_dir, "calcium_amplitude_wide_bio.csv"), row.names = FALSE)
+write_csv(bio_wide, file.path(out_dir, "calcium_amplitude_wide_bio.csv"))
 
-bio_metadata <- data.frame(neuron_id = neuron_ids, genotype = genotype)
-write.csv(bio_metadata, file.path(out_dir, "neuron_metadata_bio.csv"), row.names = FALSE)
+bio_metadata <- tibble(neuron_id = neuron_ids, genotype = genotype)
+write_csv(bio_metadata, file.path(out_dir, "neuron_metadata_bio.csv"))
 
 # ---- Psych: reaction time, wide format ---------------------------------------
 
@@ -89,7 +91,7 @@ participant_ids <- sprintf("P%03d", 1:n_participants)
 difficulty <- sample(c("easy", "hard"), n_participants, replace = TRUE)
 participant_intercept <- rnorm(n_participants, mean = 0, sd = psych_between_sd)
 
-psych_wide <- data.frame(participant_id = participant_ids)
+psych_wide <- tibble(participant_id = participant_ids)
 for (t in 1:n_trials_psych) {
   difficulty_effect <- ifelse(difficulty == "hard", psych_difficulty_effect, 0)
   trial_values <- psych_grand_mean + difficulty_effect + participant_intercept +
@@ -99,10 +101,10 @@ for (t in 1:n_trials_psych) {
   psych_wide[[paste0("trial_", t)]] <- round(trial_values, 1)
 }
 
-write.csv(psych_wide, file.path(out_dir, "reaction_time_wide_psych.csv"), row.names = FALSE)
+write_csv(psych_wide, file.path(out_dir, "reaction_time_wide_psych.csv"))
 
-psych_metadata <- data.frame(participant_id = participant_ids, difficulty = difficulty)
-write.csv(psych_metadata, file.path(out_dir, "participant_metadata_psych.csv"), row.names = FALSE)
+psych_metadata <- tibble(participant_id = participant_ids, difficulty = difficulty)
+write_csv(psych_metadata, file.path(out_dir, "participant_metadata_psych.csv"))
 
 # ---- Sanity check: confirm the pivot + join + lmer workflow recovers truth ---
 # (Run interactively to verify before distributing to students; not required

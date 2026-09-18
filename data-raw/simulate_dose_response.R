@@ -29,6 +29,8 @@
 #' @seealso data/dose_response/dose_response_dictionary.md
 
 
+library(tidyverse)
+
 set.seed(20260918)
 
 out_dir <- file.path("data", "dose_response")
@@ -60,7 +62,7 @@ hill_fn <- function(dose, baseline, max_resp, ec50, hill) {
 bio_rows <- lapply(bio_doses, function(d) {
   true_resp <- hill_fn(d, bio_baseline, bio_max_resp, bio_true_EC50, bio_true_hill)
   noisy_resp <- true_resp + rnorm(bio_n_reps, 0, bio_noise_sd)
-  data.frame(
+  tibble(
     dose_uM = d,
     replicate = 1:bio_n_reps,
     firing_rate = round(pmax(0, noisy_resp), 2)  # firing rate can't go below 0
@@ -68,7 +70,7 @@ bio_rows <- lapply(bio_doses, function(d) {
 })
 dose_response_bio <- do.call(rbind, bio_rows)
 
-write.csv(dose_response_bio, file.path(out_dir, "dose_response_bio.csv"), row.names = FALSE)
+write_csv(dose_response_bio, file.path(out_dir, "dose_response_bio.csv"))
 
 # ---- Psych: psychophysical function -----------------------------------------
 # Simulate individual detection trials (0/1) at each intensity, so students
@@ -82,7 +84,7 @@ logistic_fn <- function(x, threshold, slope) {
 psych_rows <- lapply(psych_intensities, function(x) {
   true_p <- logistic_fn(x, psych_true_threshold, psych_true_slope)
   detected <- rbinom(psych_n_trials_per_intensity, size = 1, prob = true_p)
-  data.frame(
+  tibble(
     intensity = x,
     trial = 1:psych_n_trials_per_intensity,
     detected = detected
@@ -90,7 +92,7 @@ psych_rows <- lapply(psych_intensities, function(x) {
 })
 psychophysics_psych <- do.call(rbind, psych_rows)
 
-write.csv(psychophysics_psych, file.path(out_dir, "psychophysics_psych.csv"), row.names = FALSE)
+write_csv(psychophysics_psych, file.path(out_dir, "psychophysics_psych.csv"))
 
 # ---- Sanity check (run interactively before distributing) -------------------
 

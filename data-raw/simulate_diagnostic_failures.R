@@ -20,7 +20,7 @@
 #'            produces a classic "U-shaped"/arc-shaped residuals-vs-fitted
 #'            plot -- systematic under- and over-prediction across the range.
 #'
-#' Ground truth (answer key):
+#' Ground truth (instructor answer key):
 #'   - Bio:   true model is amplitude = 0.5 + 0.08 * intensity, with noise
 #'            SD = 0.15 * amplitude (multiplicative, not constant).
 #'   - Psych: true model is accuracy = 0.95 * (1 - exp(-study_min / 12)),
@@ -38,6 +38,8 @@
 #' @author JMG
 #' @date 2026-09-16 (edit to reflect actual creation date)
 #' @seealso data/diagnostic_failures/diagnostic_failures_dictionary.md
+
+library(tidyverse)
 
 set.seed(20260919)
 
@@ -66,24 +68,24 @@ bio_true_mean <- bio_intercept + bio_slope * bio_intensity
 bio_noise_sd  <- bio_noise_frac * bio_true_mean          # noise scales with signal
 bio_amplitude <- pmax(0, bio_true_mean + rnorm(bio_n, 0, bio_noise_sd))
 
-calcium_heteroscedastic_bio <- data.frame(
+calcium_heteroscedastic_bio <- tibble(
   neuron_id = sprintf("N%02d", 1:bio_n),
   stim_intensity = round(bio_intensity, 2),
   amplitude = round(bio_amplitude, 3)
 )
-write.csv(calcium_heteroscedastic_bio, file.path(out_dir, "calcium_heteroscedastic_bio.csv"), row.names = FALSE)
+write_csv(calcium_heteroscedastic_bio, file.path(out_dir, "calcium_heteroscedastic_bio.csv"))
 
 # ---- Psych: nonlinear recall-vs-study-time data -----------------------------
 
 psych_true_mean <- psych_asymptote * (1 - exp(-psych_study_min / psych_rate))
 psych_accuracy  <- pmin(1, pmax(0, psych_true_mean + rnorm(psych_n, 0, psych_noise_sd)))
 
-recall_nonlinear_psych <- data.frame(
+recall_nonlinear_psych <- tibble(
   participant_id = sprintf("P%03d", 1:psych_n),
   study_min = round(psych_study_min, 1),
   accuracy = round(psych_accuracy, 3)
 )
-write.csv(recall_nonlinear_psych, file.path(out_dir, "recall_nonlinear_psych.csv"), row.names = FALSE)
+write_csv(recall_nonlinear_psych, file.path(out_dir, "recall_nonlinear_psych.csv"))
 
 # ---- Sanity check: confirm the naive linear fit actually looks bad ---------
 # (Run interactively before distributing to students; not required for
