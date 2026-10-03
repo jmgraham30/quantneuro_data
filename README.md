@@ -15,6 +15,7 @@ quantneuro_data/
 ├── data-raw/                <- scripts that generate or clean each dataset (source of truth)
 │   ├── simulate_distributions.R
 │   ├── simulate_repeated_measures.R
+│   ├── simulate_pseudoreplication.R
 │   ├── simulate_dose_response.R
 │   ├── simulate_diagnostic_failures.R
 │   ├── prepare_steinmetz.R          <- real data; run AFTER python_prep/export_steinmetz_trials.py
@@ -58,6 +59,7 @@ datasets. **Run each script once and check its output by hand before relying on 
 | Probability distributions | Psych | Simulated | Forced-choice accuracy (Binomial) & reaction times (skewed) | `data-raw/simulate_distributions.R` |
 | Repeated measures / pivoting / mixed models | Bio | Simulated | Calcium-imaging trials, wide format, with missingness | `data-raw/simulate_repeated_measures.R` |
 | Repeated measures / pivoting / mixed models | Psych | Simulated | RT trials, wide format, with missingness | `data-raw/simulate_repeated_measures.R` |
+| Pseudoreplication / unit of analysis | Bio | Simulated | Neurons nested in animals -- pooling neurons as independent gives a false-positive, averaging to animal level gives the honest answer | `data-raw/simulate_pseudoreplication.R` |
 | Nonlinear curve fitting | Bio | Simulated | Dose-response curve (known EC50 & Hill slope) | `data-raw/simulate_dose_response.R` |
 | Nonlinear curve fitting | Psych | Simulated | Psychophysical function (known threshold & slope) | `data-raw/simulate_dose_response.R` |
 | Diagnostic-failure demo (what a bad diagnostic plot looks like) | Bio | Simulated | Calcium-imaging amplitude vs. intensity, deliberately heteroscedastic (fan-shaped residuals under OLS) | `data-raw/simulate_diagnostic_failures.R` |
